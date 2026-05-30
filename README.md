@@ -18,7 +18,7 @@ OVA interactiva con estética de videojuego RPG que enseña las **Definiciones d
 
 ## 🚀 Ver la OVA en línea
 
-> **GitHub Pages:** `https://jhonata1525/<nombre-del-repositorio>/`
+> **GitHub Pages:** `https://jhonata1525/OVA_Definicion_De_Sistemas/`
 >
 > *(El enlace estará disponible una vez que actives GitHub Pages — ver instrucciones abajo)*
 
