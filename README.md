@@ -46,7 +46,7 @@ OVA interactiva con estética de videojuego RPG que enseña las **Definiciones d
 | 🔧 Misión 2 — Simulador | Constructor de sistemas: valida entradas, procesos y salidas de 5 sistemas reales |
 | 🎮 Misión 3 — Juegos | Juego de Memoria (pares concepto-definición) + Clasifica sistemas (drag & drop) |
 | 📝 Misión 4 — Quiz | 10 preguntas con puntaje automático y retroalimentación por respuesta |
-| 🎥 Videos | 3 videos en español sobre TGS embebidos desde YouTube |
+| 🎥 Videos | 3 videos sobre TGS embebidos desde YouTube |
 | 📚 Ejercicios | 3 ejercicios reflexivos con retroalimentación detallada |
 | 🏆 Créditos | Ficha técnica y referencias bibliográficas en APA 7 |
 
