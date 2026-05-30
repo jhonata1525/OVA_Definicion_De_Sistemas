@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OVA – Definiciones de Sistema | TGS</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --px: #00ff88;
+  --px2: #00cfff;
+  --px3: #ff6b6b;
+  --px4: #ffd93d;
+  --bg: #0a0e1a;
+  --bg2: #111827;
+  --bg3: #1a2235;
+  --card: #141d2e;
+  --border: #1e3a5f;
+  --text: #e2e8f0;
+  --muted: #64748b;
+  --font-pixel: 'Press Start 2P', monospace;
+  --font-main: 'Nunito', sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-main);overflow-x:hidden}
+
+/* Scanlines overlay */
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);pointer-events:none;z-index:9999}
+
+/* NAVBAR */
+nav{position:fixed;top:0;left:0;width:100%;background:rgba(10,14,26,0.95);border-bottom:2px solid var(--px);z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 2rem}
+.nav-logo{font-family:var(--font-pixel);font-size:8px;color:var(--px);padding:1rem 0;letter-spacing:1px}
+.nav-links{display:flex;gap:0}
+.nav-links a{font-family:var(--font-main);font-size:12px;font-weight:700;color:var(--muted);text-decoration:none;padding:1.2rem 1rem;text-transform:uppercase;letter-spacing:1px;border-bottom:3px solid transparent;transition:all .2s}
+.nav-links a:hover{color:var(--px);border-bottom-color:var(--px)}
+.nav-xp{font-family:var(--font-pixel);font-size:7px;color:var(--px4);display:flex;align-items:center;gap:8px}
+.xp-bar{width:80px;height:8px;background:rgba(255,255,255,0.1);border-radius:4px;overflow:hidden}
+.xp-fill{height:100%;background:var(--px4);border-radius:4px;transition:width .5s ease;width:0%}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:5rem 2rem 3rem;position:relative;overflow:hidden}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,255,136,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,136,0.04) 1px,transparent 1px);background-size:50px 50px;animation:gridMove 20s linear infinite}
+@keyframes gridMove{0%{transform:translateY(0)}100%{transform:translateY(50px)}}
+.hero-badge{font-family:var(--font-pixel);font-size:8px;color:var(--px);border:1px solid var(--px);padding:6px 14px;margin-bottom:2rem;display:inline-block;animation:blink 1.5s step-end infinite}
+@keyframes blink{50%{opacity:0}}
+.hero h1{font-family:var(--font-pixel);font-size:clamp(14px,3vw,28px);color:#fff;line-height:1.8;margin-bottom:1rem}
+.hero h1 span{color:var(--px)}
+.hero-sub{font-size:16px;color:var(--muted);max-width:600px;margin:0 auto 2.5rem;line-height:1.7}
+.btn-start{font-family:var(--font-pixel);font-size:10px;background:var(--px);color:#000;border:none;padding:14px 28px;cursor:pointer;text-decoration:none;display:inline-block;position:relative;transition:all .15s;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px))}
+.btn-start:hover{background:#fff;transform:scale(1.05)}
+.hero-stats{display:flex;gap:2rem;margin-top:3rem;flex-wrap:wrap;justify-content:center}
+.stat-box{background:var(--card);border:1px solid var(--border);padding:1rem 1.5rem;text-align:center}
+.stat-box .val{font-family:var(--font-pixel);font-size:16px;color:var(--px);display:block}
+.stat-box .lbl{font-size:11px;color:var(--muted);margin-top:6px;font-weight:700;text-transform:uppercase;letter-spacing:1px}
+
+/* SECTION BASE */
+section{padding:5rem 2rem}
+.container{max-width:1000px;margin:0 auto}
+.section-header{text-align:center;margin-bottom:3rem}
+.section-header .tag{font-family:var(--font-pixel);font-size:7px;color:var(--px2);letter-spacing:2px;margin-bottom:1rem;display:block}
+.section-header h2{font-family:var(--font-pixel);font-size:clamp(12px,2vw,20px);color:#fff;line-height:1.8;margin-bottom:1rem}
+.section-header p{color:var(--muted);font-size:15px;max-width:600px;margin:0 auto;line-height:1.7}
+
+/* MISION CARDS */
+.missions{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
+.mission-card{background:var(--card);border:1px solid var(--border);padding:1.5rem;position:relative;cursor:pointer;transition:all .25s;overflow:hidden}
+.mission-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--px)}
+.mission-card:hover{border-color:var(--px);transform:translateY(-3px)}
+.mission-card.locked{opacity:.5;cursor:not-allowed}
+.mission-card.locked::before{background:var(--muted)}
+.mission-num{font-family:var(--font-pixel);font-size:9px;color:var(--muted);margin-bottom:.5rem}
+.mission-title{font-size:15px;font-weight:800;color:#fff;margin-bottom:.5rem}
+.mission-desc{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:1rem}
+.mission-xp{font-family:var(--font-pixel);font-size:7px;color:var(--px4);display:flex;align-items:center;gap:6px}
+.mission-status{position:absolute;top:1rem;right:1rem;font-family:var(--font-pixel);font-size:7px;padding:4px 8px;border-radius:2px}
+.status-active{background:rgba(0,255,136,0.15);color:var(--px);border:1px solid var(--px)}
+.status-locked{background:rgba(100,116,139,0.15);color:var(--muted);border:1px solid var(--muted)}
+.status-done{background:rgba(0,207,255,0.15);color:var(--px2);border:1px solid var(--px2)}
+
+/* CONTENT SECTIONS */
+.content-bg{background:var(--bg2)}
+.authors-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
+.author-card{background:var(--card);border:1px solid var(--border);padding:1.5rem;position:relative;overflow:hidden;transition:all .25s}
+.author-card:hover{border-color:var(--px2);transform:translateY(-2px)}
+.author-card::after{content:'';position:absolute;bottom:0;right:0;width:60px;height:60px;border-top:1px solid var(--border);border-left:1px solid var(--border)}
+.author-portrait{width:48px;height:48px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:var(--font-pixel);font-size:14px;margin-bottom:1rem;border:2px solid}
+.author-name{font-size:14px;font-weight:800;color:#fff;margin-bottom:.25rem}
+.author-year{font-family:var(--font-pixel);font-size:7px;color:var(--muted);margin-bottom:.75rem}
+.author-def{font-size:13px;color:var(--muted);line-height:1.7;border-left:2px solid var(--border);padding-left:.75rem}
+.def-tag{display:inline-block;font-family:var(--font-pixel);font-size:6px;padding:3px 8px;margin-top:.75rem;border-radius:2px}
+
+/* SIMULATOR */
+.simulator{background:var(--bg3);border:2px solid var(--px);padding:2rem;position:relative}
+.simulator::before{content:'SYSTEM_BUILDER v1.0';font-family:var(--font-pixel);font-size:7px;color:var(--px);position:absolute;top:-10px;left:20px;background:var(--bg);padding:0 8px}
+.sim-cols{display:grid;grid-template-columns:1fr 60px 1fr 60px 1fr;gap:.5rem;align-items:start;margin:1.5rem 0}
+.sim-col-title{font-family:var(--font-pixel);font-size:7px;text-align:center;margin-bottom:.75rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+.sim-items{display:flex;flex-direction:column;gap:.5rem;min-height:200px}
+.sim-item{background:var(--card);border:1px solid var(--border);padding:.6rem .8rem;font-size:12px;cursor:grab;transition:all .2s;user-select:none;position:relative}
+.sim-item:hover{border-color:var(--px4);color:var(--px4)}
+.sim-item.dragging{opacity:.5;border-color:var(--px)}
+.sim-item.selected{border-color:var(--px);color:var(--px);background:rgba(0,255,136,0.05)}
+.sim-arrow{display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:20px;padding-top:3rem}
+.sim-drop{background:rgba(0,255,136,0.03);border:2px dashed var(--border);padding:.5rem;min-height:200px;transition:all .2s}
+.sim-drop.over{border-color:var(--px);background:rgba(0,255,136,0.08)}
+.sim-drop .placed-item{background:rgba(0,255,136,0.1);border:1px solid var(--px);color:var(--px);padding:.5rem .75rem;font-size:12px;margin-bottom:.5rem;display:flex;justify-content:space-between;align-items:center}
+.sim-drop .placed-item .remove{cursor:pointer;color:var(--px3);font-size:16px;line-height:1}
+.sim-feedback{background:var(--card);border:1px solid var(--border);padding:1.25rem;margin-top:1rem;font-size:14px;line-height:1.7;display:none}
+.sim-feedback.show{display:block}
+.sim-feedback.ok{border-color:var(--px);color:var(--px)}
+.sim-feedback.error{border-color:var(--px3);color:var(--px3)}
+.sim-feedback.warn{border-color:var(--px4);color:var(--px4)}
+.btn-check{font-family:var(--font-pixel);font-size:8px;background:transparent;color:var(--px);border:2px solid var(--px);padding:10px 20px;cursor:pointer;margin-top:1rem;transition:all .2s}
+.btn-check:hover{background:var(--px);color:#000}
+.btn-reset{font-family:var(--font-pixel);font-size:8px;background:transparent;color:var(--muted);border:1px solid var(--muted);padding:10px 20px;cursor:pointer;margin-top:1rem;margin-left:.75rem;transition:all .2s}
+.btn-reset:hover{color:var(--px3);border-color:var(--px3)}
+
+/* PROPIEDADES DE SISTEMAS */
+.props-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.25rem}
+.prop-card{background:var(--card);border:1px solid var(--border);padding:1.25rem;transition:all .25s;cursor:pointer;position:relative}
+.prop-card:hover{transform:translateY(-3px)}
+.prop-icon{font-size:28px;margin-bottom:.75rem}
+.prop-name{font-family:var(--font-pixel);font-size:8px;color:#fff;margin-bottom:.5rem;line-height:1.6}
+.prop-desc{font-size:12px;color:var(--muted);line-height:1.6}
+.prop-example{font-size:11px;background:rgba(0,255,136,0.05);border-left:2px solid var(--px);padding:.4rem .6rem;margin-top:.75rem;color:var(--px);display:none}
+.prop-card.expanded .prop-example{display:block}
+
+/* TIMELINE */
+.timeline{position:relative;padding-left:2rem}
+.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--px),var(--px2),var(--px3))}
+.tl-item{position:relative;padding:.75rem 0 1.5rem 2rem}
+.tl-dot{position:absolute;left:-9px;top:.85rem;width:16px;height:16px;border:2px solid var(--px);background:var(--bg);display:flex;align-items:center;justify-content:center;font-family:var(--font-pixel);font-size:6px;color:var(--px)}
+.tl-year{font-family:var(--font-pixel);font-size:7px;color:var(--px2);margin-bottom:.4rem}
+.tl-author{font-size:15px;font-weight:800;color:#fff;margin-bottom:.25rem}
+.tl-def{font-size:13px;color:var(--muted);line-height:1.6}
+
+/* QUIZ */
+.quiz-container{background:var(--bg3);border:2px solid var(--px2);padding:2rem;position:relative}
+.quiz-container::before{content:'QUIZ_TERMINAL v2.0';font-family:var(--font-pixel);font-size:7px;color:var(--px2);position:absolute;top:-10px;left:20px;background:var(--bg);padding:0 8px}
+.quiz-progress{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem}
+.quiz-progress-bar{flex:1;height:6px;background:rgba(255,255,255,0.1);border-radius:3px;overflow:hidden}
+.quiz-progress-fill{height:100%;background:var(--px2);border-radius:3px;transition:width .4s ease;width:0%}
+.quiz-q-num{font-family:var(--font-pixel);font-size:7px;color:var(--muted)}
+.quiz-score-display{font-family:var(--font-pixel);font-size:9px;color:var(--px4)}
+.quiz-question{font-size:16px;font-weight:700;color:#fff;margin-bottom:1.5rem;line-height:1.6}
+.quiz-options{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.quiz-option{background:var(--card);border:1px solid var(--border);padding:1rem;font-family:var(--font-main);font-size:13px;cursor:pointer;text-align:left;color:var(--text);transition:all .2s;line-height:1.5}
+.quiz-option:hover:not(:disabled){border-color:var(--px2);color:var(--px2);background:rgba(0,207,255,0.05)}
+.quiz-option.correct{border-color:var(--px)!important;background:rgba(0,255,136,0.1)!important;color:var(--px)!important}
+.quiz-option.wrong{border-color:var(--px3)!important;background:rgba(255,107,107,0.1)!important;color:var(--px3)!important}
+.quiz-option:disabled{cursor:default}
+.quiz-feedback{font-size:13px;margin-top:1rem;padding:.75rem 1rem;border-left:3px solid;display:none;line-height:1.6}
+.quiz-feedback.show{display:block}
+.quiz-next{font-family:var(--font-pixel);font-size:8px;background:transparent;color:var(--px2);border:2px solid var(--px2);padding:10px 20px;cursor:pointer;margin-top:1.5rem;display:none;transition:all .2s}
+.quiz-next.show{display:inline-block}
+.quiz-next:hover{background:var(--px2);color:#000}
+.quiz-result{text-align:center;display:none;padding:2rem 0}
+.quiz-result.show{display:block}
+.quiz-result .big-score{font-family:var(--font-pixel);font-size:36px;color:var(--px);margin-bottom:1rem}
+.quiz-result .result-msg{font-size:16px;color:var(--muted);margin-bottom:2rem}
+.quiz-restart{font-family:var(--font-pixel);font-size:8px;background:var(--px);color:#000;border:none;padding:12px 24px;cursor:pointer;transition:all .2s}
+.quiz-restart:hover{background:#fff}
+
+/* JUEGO MEMORIA */
+.memory-game{display:none}
+.memory-game.active{display:block}
+.memory-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;max-width:600px;margin:0 auto}
+.memory-card{height:90px;perspective:600px;cursor:pointer}
+.memory-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .4s;transform:rotateY(180deg)}
+.memory-card.flipped .memory-inner,.memory-card.matched .memory-inner{transform:rotateY(0deg)}
+.memory-front,.memory-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;display:flex;align-items:center;justify-content:center;font-size:12px;text-align:center;padding:.5rem;border:1px solid var(--border)}
+.memory-back{background:var(--card);color:var(--muted);font-family:var(--font-pixel);font-size:10px;transform:rotateY(180deg)}
+.memory-front{background:var(--bg3);border-color:var(--border);font-size:12px;color:var(--text);line-height:1.4}
+.memory-card.matched .memory-front{border-color:var(--px);background:rgba(0,255,136,0.08);color:var(--px)}
+.memory-stats{display:flex;gap:2rem;margin-bottom:1.5rem;flex-wrap:wrap}
+.memory-stat{font-family:var(--font-pixel);font-size:8px;color:var(--muted)}
+.memory-stat span{color:var(--px)}
+
+/* JUEGO CLASIFICA */
+.classify-game{display:none}
+.classify-game.active{display:block}
+.classify-items{display:flex;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem;min-height:60px;padding:.75rem;background:rgba(0,255,136,0.03);border:1px dashed var(--border)}
+.classify-item{background:var(--card);border:1px solid var(--border);padding:.5rem 1rem;font-size:12px;cursor:grab;user-select:none;transition:all .2s}
+.classify-item:hover{border-color:var(--px4);color:var(--px4)}
+.classify-item.dragging{opacity:.4}
+.classify-zones{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.classify-zone{background:var(--card);border:2px dashed var(--border);padding:1rem;min-height:140px;transition:all .2s}
+.classify-zone.over{border-color:var(--px);background:rgba(0,255,136,0.05)}
+.classify-zone-title{font-family:var(--font-pixel);font-size:7px;margin-bottom:.75rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+.classify-placed{display:flex;flex-wrap:wrap;gap:.5rem;min-height:60px}
+.classify-placed .ci{background:rgba(0,255,136,0.1);border:1px solid var(--px);color:var(--px);padding:.35rem .7rem;font-size:11px;cursor:pointer}
+.classify-placed .ci.wrong{background:rgba(255,107,107,0.1);border-color:var(--px3);color:var(--px3)}
+.classify-placed .ci.right{background:rgba(0,255,136,0.15);border-color:var(--px);color:var(--px)}
+
+/* VIDEOS */
+.videos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
+.video-card{background:var(--card);border:1px solid var(--border);overflow:hidden;transition:all .25s}
+.video-card:hover{border-color:var(--px2);transform:translateY(-2px)}
+.video-thumb{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+.video-iframe{width:100%;aspect-ratio:16/9;border:none;display:block}
+.video-info{padding:1rem}
+.video-title{font-size:13px;font-weight:800;color:#fff;margin-bottom:.4rem}
+.video-desc{font-size:12px;color:var(--muted);line-height:1.5}
+
+/* EXERCISES */
+.exercise-card{background:var(--card);border:1px solid var(--border);padding:1.5rem;margin-bottom:1.25rem}
+.ex-num{font-family:var(--font-pixel);font-size:7px;color:var(--px3);margin-bottom:.5rem}
+.ex-q{font-size:15px;font-weight:700;color:#fff;margin-bottom:1rem;line-height:1.5}
+.ex-input{background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font-main);font-size:13px;padding:.6rem .9rem;width:100%;margin-bottom:.75rem;outline:none;transition:border .2s}
+.ex-input:focus{border-color:var(--px)}
+.ex-btn{font-family:var(--font-pixel);font-size:7px;background:transparent;color:var(--px3);border:1px solid var(--px3);padding:8px 16px;cursor:pointer;transition:all .2s}
+.ex-btn:hover{background:var(--px3);color:#fff}
+.ex-feedback{font-size:13px;margin-top:.75rem;padding:.75rem;border-left:3px solid var(--muted);color:var(--muted);display:none;line-height:1.6}
+.ex-feedback.show{display:block}
+
+/* CREDITS */
+.credits-bg{background:var(--bg2)}
+.credits-box{background:var(--card);border:1px solid var(--border);padding:2rem;max-width:700px;margin:0 auto}
+.credit-row{display:flex;gap:1rem;margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
+.credit-row:last-child{border-bottom:none;margin-bottom:0}
+.credit-label{font-family:var(--font-pixel);font-size:7px;color:var(--muted);min-width:100px;padding-top:2px}
+.credit-val{font-size:14px;color:var(--text);line-height:1.6}
+.refs-list{margin-top:1.5rem}
+.ref-item{font-size:12px;color:var(--muted);margin-bottom:.75rem;padding-left:1rem;border-left:2px solid var(--border);line-height:1.6}
+
+/* NAV GAME TABS */
+.game-tabs{display:flex;gap:.5rem;margin-bottom:1.5rem;flex-wrap:wrap}
+.game-tab{font-family:var(--font-pixel);font-size:8px;background:transparent;color:var(--muted);border:1px solid var(--muted);padding:8px 14px;cursor:pointer;transition:all .2s}
+.game-tab.active{background:var(--px4);color:#000;border-color:var(--px4)}
+.game-tab:hover:not(.active){color:var(--px4);border-color:var(--px4)}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .sim-cols{grid-template-columns:1fr;gap:1rem}
+  .sim-arrow{display:none}
+  .quiz-options{grid-template-columns:1fr}
+  .memory-grid{grid-template-columns:repeat(4,1fr);gap:.5rem}
+  .memory-card{height:70px}
+  .nav-links{display:none}
+  .hero h1{font-size:12px}
+}
+
+/* SCROLL REVEAL */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:none}
+
+/* PIXEL CORNERS */
+.pixel-border{clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px))}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-logo">&#9632; TGS // UNISIMON</div>
+  <div class="nav-links">
+    <a href="#inicio">Inicio</a>
+    <a href="#misiones">Misiones</a>
+    <a href="#definiciones">Definiciones</a>
+    <a href="#simulador">Simulador</a>
+    <a href="#juegos">Juegos</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#creditos">Créditos</a>
+  </div>
+  <div class="nav-xp">
+    <span>XP</span>
+    <div class="xp-bar"><div class="xp-fill" id="xpBar"></div></div>
+    <span id="xpCount">0</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-grid"></div>
+  <div style="position:relative;z-index:1">
+    <div class="hero-badge">&#9658; PRESIONA START</div>
+    <h1>TEORÍA GENERAL<br>DE <span>SISTEMAS</span><br><span style="color:var(--px2)">NIVEL 01</span></h1>
+    <p class="hero-sub">Una aventura de aprendizaje sobre las Definiciones de Sistema. Completa misiones, construye sistemas reales y demuestra tu dominio del tema.</p>
+    <a href="#misiones" class="btn-start pixel-border">&#9658; INICIAR AVENTURA</a>
+    <div class="hero-stats">
+      <div class="stat-box"><span class="val">4</span><span class="lbl">Misiones</span></div>
+      <div class="stat-box"><span class="val">8</span><span class="lbl">Autores</span></div>
+      <div class="stat-box"><span class="val">3</span><span class="lbl">Juegos</span></div>
+      <div class="stat-box"><span class="val">10</span><span class="lbl">Preguntas</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- MISIONES -->
+<section id="misiones">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">// MAPA DE MISIONES</span>
+      <h2>SELECCIONA TU MISIÓN</h2>
+      <p>Cada misión desbloquea conocimiento nuevo. Completa todas para dominar las Definiciones de Sistema.</p>
+    </div>
+    <div class="missions reveal">
+      <div class="mission-card" onclick="location.href='#definiciones'">
+        <span class="mission-status status-active">ACTIVA</span>
+        <div class="mission-num">MISIÓN 01</div>
+        <div class="mission-title">¿Qué es un Sistema?</div>
+        <div class="mission-desc">Explora las definiciones de los principales teóricos de la TGS y comprende el concepto desde múltiples perspectivas.</div>
+        <div class="mission-xp">&#9733; +50 XP &nbsp; // TEORÍA</div>
+      </div>
+      <div class="mission-card" onclick="location.href='#simulador'">
+        <span class="mission-status status-active">ACTIVA</span>
+        <div class="mission-num">MISIÓN 02</div>
+        <div class="mission-title">Construye un Sistema</div>
+        <div class="mission-desc">Usa el simulador para ensamblar sistemas reales combinando entradas, procesos y salidas. El motor valida tu lógica.</div>
+        <div class="mission-xp">&#9733; +80 XP &nbsp; // SIMULACIÓN</div>
+      </div>
+      <div class="mission-card" onclick="location.href='#juegos'">
+        <span class="mission-status status-active">ACTIVA</span>
+        <div class="mission-num">MISIÓN 03</div>
+        <div class="mission-title">Juegos Interactivos</div>
+        <div class="mission-desc">Desafía tu memoria con el juego de pares y clasifica ejemplos en sistemas abiertos o cerrados.</div>
+        <div class="mission-xp">&#9733; +60 XP &nbsp; // JUEGOS</div>
+      </div>
+      <div class="mission-card" onclick="location.href='#quiz'">
+        <span class="mission-status status-active">ACTIVA</span>
+        <div class="mission-num">MISIÓN 04</div>
+        <div class="mission-title">Evaluación Final</div>
+        <div class="mission-desc">10 preguntas de selección múltiple. Pon a prueba todo lo aprendido y obtén tu puntuación final.</div>
+        <div class="mission-xp">&#9733; +100 XP &nbsp; // EVALUACIÓN</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEFINICIONES -->
+<section id="definiciones" class="content-bg">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">// MISIÓN 01 — TEORÍA</span>
+      <h2>DEFINICIONES DE SISTEMA</h2>
+      <p>Un sistema es mucho más que la suma de sus partes. Aquí están las definiciones más importantes a través de la historia.</p>
+    </div>
+
+    <!-- Contextualización -->
+    <div style="background:var(--card);border:1px solid var(--border);border-left:4px solid var(--px);padding:1.5rem;margin-bottom:2.5rem;" class="reveal">
+      <h3 style="font-family:var(--font-pixel);font-size:9px;color:var(--px);margin-bottom:1rem">&#9654; ¿POR QUÉ IMPORTA ESTE TEMA?</h3>
+      <p style="font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:.75rem">Entender qué es un sistema es la base de la Teoría General de Sistemas (TGS). Sin esta definición, no es posible analizar organizaciones, procesos biológicos, tecnológicos ni sociales. Prácticamente todo lo que nos rodea puede ser analizado como un sistema: desde una célula hasta una empresa, desde un semáforo hasta Internet.</p>
+      <p style="font-size:14px;color:var(--muted);line-height:1.8">La TGS, impulsada por Ludwig von Bertalanffy en el siglo XX, propone una visión integradora que permite estudiar fenómenos complejos a través de principios universales aplicables en cualquier disciplina.</p>
+    </div>
+
+    <!-- Timeline -->
+    <div class="section-header reveal" style="text-align:left;margin-bottom:1.5rem">
+      <span class="tag">// LÍNEA DE TIEMPO</span>
+      <h3 style="font-family:var(--font-pixel);font-size:10px;color:#fff">EVOLUCIÓN DEL CONCEPTO</h3>
+    </div>
+    <div class="timeline reveal" style="margin-bottom:3rem">
+      <div class="tl-item">
+        <div class="tl-dot">01</div>
+        <div class="tl-year">1945 — 1968</div>
+        <div class="tl-author">Ludwig von Bertalanffy</div>
+        <div class="tl-def">Definió el sistema como <em>"un conjunto de elementos en interacción"</em>. Su obra Teoría General de los Sistemas (1968) sentó las bases de la disciplina y propuso que los principios sistémicos son aplicables a cualquier ciencia.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">02</div>
+        <div class="tl-year">1956</div>
+        <div class="tl-author">Kenneth Boulding</div>
+        <div class="tl-def">Propuso una jerarquía de nueve niveles de complejidad de sistemas, desde sistemas estáticos (estructuras) hasta trascendentales (los que superan nuestra comprensión). Definió el sistema como una estructura con partes interconectadas e interdependientes.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">03</div>
+        <div class="tl-year">1960</div>
+        <div class="tl-author">Norbert Wiener</div>
+        <div class="tl-def">Padre de la cibernética, definió los sistemas en términos de comunicación y control: un sistema es cualquier entidad capaz de recibir, procesar y transmitir información para regularse a sí misma mediante retroalimentación.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">04</div>
+        <div class="tl-year">1966</div>
+        <div class="tl-author">Daniel Katz y Robert Kahn</div>
+        <div class="tl-def">Aplicaron la TGS a las organizaciones, definiendo el sistema como un conjunto de elementos interdependientes que forman un todo unificado que importa energía, la transforma y exporta un producto al entorno.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">05</div>
+        <div class="tl-year">1973</div>
+        <div class="tl-author">Oscar Johansen Bertoglio</div>
+        <div class="tl-def">En su obra ¿Qué es un Sistema? — Definiciones y conceptos, definió el sistema como <em>"un conjunto de objetos con relaciones entre los objetos y entre sus atributos"</em>. Johansen enfatizó la importancia de las relaciones por encima de los elementos mismos.</div>
+      </div>
+    </div>
+
+    <!-- Author Cards -->
+    <div class="section-header reveal" style="text-align:left;margin-bottom:1.5rem">
+      <span class="tag">// FICHAS DE AUTOR</span>
+      <h3 style="font-family:var(--font-pixel);font-size:10px;color:#fff">TEÓRICOS CLAVE</h3>
+    </div>
+    <div class="authors-grid reveal">
+      <div class="author-card">
+        <div class="author-portrait" style="background:rgba(0,255,136,0.1);border-color:var(--px);color:var(--px)">vB</div>
+        <div class="author-name">Ludwig von Bertalanffy</div>
+        <div class="author-year">AUSTRIA · 1901–1972</div>
+        <div class="author-def">"Un sistema es un conjunto de elementos en interacción dinámica, organizados en función de un objetivo." Su propuesta revolucionó el pensamiento científico al rechazar el reduccionismo y promover una visión holística.</div>
+        <span class="def-tag" style="background:rgba(0,255,136,0.1);color:var(--px);border:1px solid var(--px)">FUNDADOR TGS</span>
+      </div>
+      <div class="author-card">
+        <div class="author-portrait" style="background:rgba(0,207,255,0.1);border-color:var(--px2);color:var(--px2)">JO</div>
+        <div class="author-name">Oscar Johansen Bertoglio</div>
+        <div class="author-year">CHILE · 1935–2018</div>
+        <div class="author-def">"Un sistema es un conjunto de objetos, junto con las relaciones entre dichos objetos y entre sus atributos." Destacó que lo relevante no son los objetos aislados sino sus relaciones y cómo estas generan propiedades emergentes.</div>
+        <span class="def-tag" style="background:rgba(0,207,255,0.1);color:var(--px2);border:1px solid var(--px2)">AUTOR CLAVE TGS</span>
+      </div>
+      <div class="author-card">
+        <div class="author-portrait" style="background:rgba(255,217,61,0.1);border-color:var(--px4);color:var(--px4)">NW</div>
+        <div class="author-name">Norbert Wiener</div>
+        <div class="author-year">EEUU · 1894–1964</div>
+        <div class="author-def">"Los sistemas son entidades que pueden recibir, guardar y procesar información y utilizarla para controlar su entorno." Introdujo el concepto de retroalimentación (feedback) como mecanismo de regulación sistémica.</div>
+        <span class="def-tag" style="background:rgba(255,217,61,0.1);color:var(--px4);border:1px solid var(--px4)">CIBERNÉTICA</span>
+      </div>
+      <div class="author-card">
+        <div class="author-portrait" style="background:rgba(255,107,107,0.1);border-color:var(--px3);color:var(--px3)">KB</div>
+        <div class="author-name">Kenneth Boulding</div>
+        <div class="author-year">EEUU · 1910–1993</div>
+        <div class="author-def">"Un sistema es una totalidad organizada, un conjunto de elementos interdependientes que forman un todo que es más que la suma de sus partes." Propuso la clasificación de sistemas en 9 niveles de complejidad.</div>
+        <span class="def-tag" style="background:rgba(255,107,107,0.1);color:var(--px3);border:1px solid var(--px3)">ECONOMISTA SISTÉMICO</span>
+      </div>
+    </div>
+
+    <!-- Propiedades -->
+    <div class="section-header reveal" style="text-align:left;margin-bottom:1.5rem;margin-top:3rem">
+      <span class="tag">// CONCEPTOS CLAVE</span>
+      <h3 style="font-family:var(--font-pixel);font-size:10px;color:#fff">PROPIEDADES DE UN SISTEMA <span style="font-size:8px;color:var(--muted)">(clic para expandir)</span></h3>
+    </div>
+    <div class="props-grid reveal">
+      <div class="prop-card" onclick="toggleProp(this)" style="border-top:3px solid var(--px)">
+        <div class="prop-icon">&#9651;</div>
+        <div class="prop-name">TOTALIDAD / HOLISMO</div>
+        <div class="prop-desc">El sistema como un todo es más que la suma de sus partes. Las propiedades emergentes no pertenecen a ningún elemento individual.</div>
+        <div class="prop-example">Ej: Un equipo de fútbol tiene habilidades colectivas que ningún jugador posee por sí solo.</div>
+      </div>
+      <div class="prop-card" onclick="toggleProp(this)" style="border-top:3px solid var(--px2)">
+        <div class="prop-icon">&#8635;</div>
+        <div class="prop-name">RETROALIMENTACIÓN</div>
+        <div class="prop-desc">Los resultados del sistema son reintroducidos como información para ajustar su comportamiento futuro.</div>
+        <div class="prop-example">Ej: Un termostato mide la temperatura y ajusta la calefacción para mantener el equilibrio.</div>
+      </div>
+      <div class="prop-card" onclick="toggleProp(this)" style="border-top:3px solid var(--px4)">
+        <div class="prop-icon">&#9670;</div>
+        <div class="prop-name">ENTROPÍA</div>
+        <div class="prop-desc">Tendencia natural al desorden. Los sistemas abiertos pueden importar energía para combatir la entropía (negentropía).</div>
+        <div class="prop-example">Ej: Una empresa sin inversión ni innovación tiende al caos y la quiebra con el tiempo.</div>
+      </div>
+      <div class="prop-card" onclick="toggleProp(this)" style="border-top:3px solid var(--px3)">
+        <div class="prop-icon">&#9675;</div>
+        <div class="prop-name">EQUIFINALIDAD</div>
+        <div class="prop-desc">Un sistema puede alcanzar el mismo estado final desde diferentes condiciones iniciales y por distintos caminos.</div>
+        <div class="prop-example">Ej: Distintas estrategias de negocio pueden llevar a la misma posición de mercado.</div>
+      </div>
+      <div class="prop-card" onclick="toggleProp(this)" style="border-top:3px solid #a78bfa">
+        <div class="prop-icon">&#9741;</div>
+        <div class="prop-name">HOMEOSTASIS</div>
+        <div class="prop-desc">Capacidad del sistema de mantener un estado de equilibrio dinámico frente a perturbaciones externas.</div>
+        <div class="prop-example">Ej: El cuerpo humano mantiene la temperatura en 37°C a pesar del ambiente.</div>
+      </div>
+      <div class="prop-card" onclick="toggleProp(this)" style="border-top:3px solid #34d399">
+        <div class="prop-icon">&#10022;</div>
+        <div class="prop-name">SINERGIA</div>
+        <div class="prop-desc">La interacción de los componentes produce un resultado mayor que si actuaran de forma independiente.</div>
+        <div class="prop-example">Ej: En una orquesta, la combinación de instrumentos crea música imposible de lograr con uno solo.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SIMULADOR -->
+<section id="simulador">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">// MISIÓN 02 — SIMULACIÓN</span>
+      <h2>CONSTRUCTOR DE SISTEMAS</h2>
+      <p>Arrastra o selecciona los componentes correctos para cada categoría y construye un sistema coherente. El motor lo validará.</p>
+    </div>
+
+    <div style="margin-bottom:1.5rem" class="reveal">
+      <label style="font-family:var(--font-pixel);font-size:8px;color:var(--muted);margin-right:1rem">SELECCIONAR SISTEMA:</label>
+      <select id="systemSelect" onchange="loadSystem()" style="background:var(--card);color:var(--text);border:1px solid var(--border);padding:.5rem 1rem;font-family:var(--font-main);font-size:13px;cursor:pointer">
+        <option value="hospital">🏥 Hospital</option>
+        <option value="escuela">🏫 Escuela</option>
+        <option value="fabrica">🏭 Fábrica</option>
+        <option value="computadora">💻 Computadora</option>
+        <option value="ecosistema">🌿 Ecosistema</option>
+      </select>
+    </div>
+
+    <div class="simulator reveal" id="simContainer">
+      <div class="sim-cols">
+        <div>
+          <div class="sim-col-title" style="color:var(--px2)">ENTRADAS disponibles</div>
+          <div class="sim-items" id="inputPool"></div>
+        </div>
+        <div class="sim-arrow">→</div>
+        <div>
+          <div class="sim-col-title" style="color:var(--px4)">PROCESOS disponibles</div>
+          <div class="sim-items" id="processPool"></div>
+        </div>
+        <div class="sim-arrow">→</div>
+        <div>
+          <div class="sim-col-title" style="color:var(--px3)">SALIDAS disponibles</div>
+          <div class="sim-items" id="outputPool"></div>
+        </div>
+      </div>
+
+      <div style="margin:1rem 0;font-family:var(--font-pixel);font-size:8px;color:var(--muted)">▼ TU SISTEMA (haz clic en cada elemento para seleccionar / deseleccionar)</div>
+
+      <div class="sim-cols">
+        <div>
+          <div class="sim-col-title" style="color:var(--px2)">ENTRADAS seleccionadas</div>
+          <div class="sim-drop" id="inputDrop"></div>
+        </div>
+        <div class="sim-arrow">→</div>
+        <div>
+          <div class="sim-col-title" style="color:var(--px4)">PROCESOS seleccionados</div>
+          <div class="sim-drop" id="processDrop"></div>
+        </div>
+        <div class="sim-arrow">→</div>
+        <div>
+          <div class="sim-col-title" style="color:var(--px3)">SALIDAS seleccionadas</div>
+          <div class="sim-drop" id="outputDrop"></div>
+        </div>
+      </div>
+
+      <div>
+        <button class="btn-check" onclick="checkSystem()">&#9654; VALIDAR SISTEMA</button>
+        <button class="btn-reset" onclick="resetSystem()">&#8635; REINICIAR</button>
+      </div>
+      <div class="sim-feedback" id="simFeedback"></div>
+    </div>
+
+    <!-- Ejemplos prácticos -->
+    <div style="margin-top:3rem" class="reveal">
+      <div class="section-header" style="text-align:left;margin-bottom:1.5rem">
+        <span class="tag">// CASOS REALES</span>
+        <h3 style="font-family:var(--font-pixel);font-size:10px;color:#fff">EJEMPLOS PRÁCTICOS</h3>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem">
+        <div style="background:var(--card);border:1px solid var(--border);padding:1.25rem">
+          <div style="font-family:var(--font-pixel);font-size:8px;color:var(--px);margin-bottom:.75rem">SISTEMA EDUCATIVO</div>
+          <p style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:.5rem"><strong style="color:var(--text)">Entrada:</strong> Estudiantes, docentes, currículo, recursos</p>
+          <p style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:.5rem"><strong style="color:var(--text)">Proceso:</strong> Enseñanza, evaluación, gestión académica</p>
+          <p style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:.5rem"><strong style="color:var(--text)">Salida:</strong> Profesionales graduados, conocimiento generado</p>
+          <p style="font-size:13px;color:var(--muted);line-height:1.6"><strong style="color:var(--text)">Retroalimentación:</strong> Tasas de empleo, acreditaciones</p>
+        </div>
+        <div style="background:var(--card);border:1px solid var(--border);padding:1.25rem">
+          <div style="font-family:var(--font-pixel);font-size:8px;color:var(--px2);margin-bottom:.75rem">SISTEMA DIGESTIVO</div>
+          <p style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:.5rem"><strong style="color:var(--text)">Entrada:</strong> Alimentos, agua, enzimas</p>
+          <p style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:.5rem"><strong style="color:var(--text)">Proceso:</strong> Digestión, absorción, metabolismo</p>
+          <p style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:.5rem"><strong style="color:var(--text)">Salida:</strong> Energía, nutrientes, desechos</p>
+          <p style="font-size:13px;color:var(--muted);line-height:1.6"><strong style="color:var(--text)">Retroalimentación:</strong> Señales de saciedad al cerebro</p>
+        </div>
+        <div style="background:var(--card);border:1px solid var(--border);padding:1.25rem">
+          <div style="font-family:var(--font-pixel);font-size:8px;color:var(--px4);margin-bottom:.75rem">SISTEMA BANCARIO</div>
+          <p style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:.5rem"><strong style="color:var(--text)">Entrada:</strong> Depósitos, solicitudes, regulaciones</p>
+          <p style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:.5rem"><strong style="color:var(--text)">Proceso:</strong> Evaluación, crédito, inversión</p>
+          <p style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:.5rem"><strong style="color:var(--text)">Salida:</strong> Préstamos, rendimientos, servicios</p>
+          <p style="font-size:13px;color:var(--muted);line-height:1.6"><strong style="color:var(--text)">Retroalimentación:</strong> Tasas de interés, riesgo</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEOS -->
+<section class="content-bg">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">// MULTIMEDIA</span>
+      <h2>VIDEOS DEL TEMA</h2>
+      <p>Refuerza tu aprendizaje con estos recursos audiovisuales cuidadosamente seleccionados.</p>
+    </div>
+    <div class="videos-grid reveal">
+      <div class="video-card">
+        <iframe class="video-iframe" src="https://www.youtube.com/embed/tAPOnUCIa3s" title="Introducción a la TGS" allowfullscreen></iframe>
+        <div class="video-info">
+          <div class="video-title">¿Qué es un Sistema? — Definiciones y conceptos</div>
+          <div class="video-desc">Video seleccionado por el autor de esta OVA para introducir las definiciones clave de sistema en el marco de la TGS. En español.</div>
+        </div>
+      </div>
+      <div class="video-card">
+        <iframe class="video-iframe" src="https://www.youtube.com/embed/QbBy20GPlqc" title="¿Qué es un Sistema?" allowfullscreen></iframe>
+        <div class="video-info">
+          <div class="video-title">Teoría General de Sistemas — Resumen Animado</div>
+          <div class="video-desc">Explicación animada de la TGS de Bertalanffy: orígenes, conceptos de sistema, holismo y propiedades. Canal en español.</div>
+        </div>
+      </div>
+      <div class="video-card">
+        <iframe class="video-iframe" src="https://www.youtube.com/embed/MEb7dy2oO9Y" title="Sistemas Abiertos y Cerrados" allowfullscreen></iframe>
+        <div class="video-info">
+          <div class="video-title">TGS: Sistemas Abiertos y Cerrados</div>
+          <div class="video-desc">Análisis completo de los tipos de sistemas según la TGS: sistemas abiertos, cerrados y sus características con ejemplos reales.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EJERCICIOS -->
+<section>
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">// PRÁCTICA</span>
+      <h2>EJERCICIOS PLANTEADOS</h2>
+      <p>Aplica lo aprendido. Responde con tus propias palabras para recibir retroalimentación.</p>
+    </div>
+    <div class="reveal">
+      <div class="exercise-card">
+        <div class="ex-num">EJERCICIO 01</div>
+        <div class="ex-q">Identifica los componentes del sistema de transporte público de tu ciudad: ¿cuáles son sus entradas, procesos, salidas y retroalimentación?</div>
+        <textarea class="ex-input" rows="3" placeholder="Escribe tu respuesta aquí..."></textarea>
+        <button class="ex-btn" onclick="showExFeedback(this)">VER RETROALIMENTACIÓN</button>
+        <div class="ex-feedback" data-fb="Respuesta modelo: Entradas: pasajeros, combustible, rutas planificadas, conductores. Procesos: conducción, recaudo de tarifas, despacho de vehículos, mantenimiento. Salidas: pasajeros transportados, ingresos, emisiones. Retroalimentación: quejas de usuarios, niveles de ocupación, accidentes (ajustan rutas y frecuencias).">
+        </div>
+      </div>
+      <div class="exercise-card">
+        <div class="ex-num">EJERCICIO 02</div>
+        <div class="ex-q">¿Por qué Johansen afirma que lo más importante en un sistema no son los objetos sino las relaciones entre ellos? Da un ejemplo.</div>
+        <textarea class="ex-input" rows="3" placeholder="Escribe tu respuesta aquí..."></textarea>
+        <button class="ex-btn" onclick="showExFeedback(this)">VER RETROALIMENTACIÓN</button>
+        <div class="ex-feedback" data-fb="Respuesta modelo: Las relaciones determinan el comportamiento emergente del sistema. Un conjunto de neuronas aisladas no piensa; es su red de conexiones la que genera inteligencia. Del mismo modo, los empleados de una empresa producen resultados distintos según cómo se relacionen, coordinen y comuniquen entre sí.">
+        </div>
+      </div>
+      <div class="exercise-card">
+        <div class="ex-num">EJERCICIO 03</div>
+        <div class="ex-q">Clasifica los siguientes como sistema abierto o cerrado y justifica: a) El cuerpo humano, b) Un reloj mecánico sellado, c) Una empresa privada.</div>
+        <textarea class="ex-input" rows="3" placeholder="Escribe tu respuesta aquí..."></textarea>
+        <button class="ex-btn" onclick="showExFeedback(this)">VER RETROALIMENTACIÓN</button>
+        <div class="ex-feedback" data-fb="Respuesta modelo: a) Cuerpo humano: ABIERTO — intercambia materia (alimentos, oxígeno, desechos) y energía con el entorno constantemente. b) Reloj sellado: CERRADO — funciona con su propia energía almacenada sin intercambio de materia con el entorno. c) Empresa: ABIERTO — importa recursos (capital, talento, materias primas) y exporta productos/servicios, interactuando permanentemente con su entorno.">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JUEGOS -->
+<section id="juegos" class="content-bg">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">// MISIÓN 03 — JUEGOS</span>
+      <h2>JUEGOS INTERACTIVOS</h2>
+      <p>Aprende jugando. Dos actividades para reforzar los conceptos de forma divertida.</p>
+    </div>
+
+    <div class="game-tabs reveal">
+      <button class="game-tab active" onclick="switchGame('memory')">&#9632; JUEGO 1: MEMORIA</button>
+      <button class="game-tab" onclick="switchGame('classify')">&#9632; JUEGO 2: CLASIFICA</button>
+    </div>
+
+    <!-- MEMORY GAME -->
+    <div class="memory-game active" id="memoryGame">
+      <div class="memory-stats">
+        <div class="memory-stat">Intentos: <span id="memAttempts">0</span></div>
+        <div class="memory-stat">Pares encontrados: <span id="memPairs">0</span>/6</div>
+        <div class="memory-stat">Estado: <span id="memStatus">En juego</span></div>
+      </div>
+      <div class="memory-grid" id="memoryGrid"></div>
+      <button class="btn-check" onclick="initMemory()" style="margin-top:1.5rem">&#8635; REINICIAR JUEGO</button>
+    </div>
+
+    <!-- CLASSIFY GAME -->
+    <div class="classify-game" id="classifyGame">
+      <p style="font-size:14px;color:var(--muted);margin-bottom:1rem;line-height:1.6">Arrastra (o haz clic) cada ejemplo a la categoría correcta: ¿es un sistema <strong style="color:var(--px)">ABIERTO</strong> (intercambia con el entorno) o <strong style="color:var(--px3)">CERRADO</strong> (no intercambia)?</p>
+      <div style="font-family:var(--font-pixel);font-size:8px;color:var(--muted);margin-bottom:.75rem">ELEMENTOS A CLASIFICAR:</div>
+      <div class="classify-items" id="classifyBank"></div>
+      <div class="classify-zones">
+        <div class="classify-zone" id="zone-open" ondragover="event.preventDefault();this.classList.add('over')" ondragleave="this.classList.remove('over')" ondrop="dropClassify(event,'open')">
+          <div class="classify-zone-title" style="color:var(--px)">&#9650; SISTEMA ABIERTO</div>
+          <div class="classify-placed" id="placed-open"></div>
+        </div>
+        <div class="classify-zone" id="zone-closed" ondragover="event.preventDefault();this.classList.add('over')" ondragleave="this.classList.remove('over')" ondrop="dropClassify(event,'closed')">
+          <div class="classify-zone-title" style="color:var(--px3)">&#9650; SISTEMA CERRADO</div>
+          <div class="classify-placed" id="placed-closed"></div>
+        </div>
+      </div>
+      <button class="btn-check" onclick="checkClassify()" style="margin-top:1rem">&#9654; VERIFICAR</button>
+      <button class="btn-reset" onclick="initClassify()">&#8635; REINICIAR</button>
+      <div class="sim-feedback" id="classifyFeedback" style="margin-top:1rem"></div>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">// MISIÓN 04 — EVALUACIÓN</span>
+      <h2>QUIZ FINAL</h2>
+      <p>10 preguntas sobre Definiciones de Sistema. Cada respuesta correcta suma puntos y XP.</p>
+    </div>
+    <div class="quiz-container reveal" id="quizContainer">
+      <div id="quizBody">
+        <div class="quiz-progress">
+          <span class="quiz-q-num" id="qNum">PREGUNTA 1/10</span>
+          <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="qProgress"></div></div>
+          <span class="quiz-score-display" id="qScore">0 pts</span>
+        </div>
+        <div class="quiz-question" id="qQuestion"></div>
+        <div class="quiz-options" id="qOptions"></div>
+        <div class="quiz-feedback" id="qFeedback"></div>
+        <button class="quiz-next" id="qNext" onclick="nextQuestion()">SIGUIENTE &#9658;</button>
+      </div>
+      <div class="quiz-result" id="quizResult">
+        <div class="big-score" id="finalScore">0/10</div>
+        <div class="result-msg" id="finalMsg"></div>
+        <button class="quiz-restart" onclick="startQuiz()">&#8635; REINTENTAR</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CREDITS -->
+<section id="creditos" class="credits-bg">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">// CRÉDITOS</span>
+      <h2>FICHA TÉCNICA</h2>
+    </div>
+    <div class="credits-box reveal">
+      <div class="credit-row">
+        <div class="credit-label">AUTOR</div>
+        <div class="credit-val">Acevedo Gelves Jhonatan Javier</div>
+      </div>
+      <div class="credit-row">
+        <div class="credit-label">TEMA</div>
+        <div class="credit-val">Definiciones de Sistema — Proyecto OVA N° 1</div>
+      </div>
+      <div class="credit-row">
+        <div class="credit-label">ASIGNATURA</div>
+        <div class="credit-val">Teoría General de Sistemas (TGS)</div>
+      </div>
+      <div class="credit-row">
+        <div class="credit-label">PROGRAMA</div>
+        <div class="credit-val">Ingeniería de Sistemas</div>
+      </div>
+      <div class="credit-row">
+        <div class="credit-label">INSTITUCIÓN</div>
+        <div class="credit-val">Universidad Simón Bolívar — Sede Cúcuta</div>
+      </div>
+      <div class="credit-row">
+        <div class="credit-label">TECNOLOGÍAS</div>
+        <div class="credit-val">HTML5 · CSS3 · JavaScript (Vanilla) · Google Fonts</div>
+      </div>
+      <div class="credit-row">
+        <div class="credit-label">OBJETIVO</div>
+        <div class="credit-val">Diseñar e implementar una OVA funcional, interactiva y didáctica que permita comprender las definiciones y conceptos fundamentales de Sistema en el marco de la Teoría General de Sistemas.</div>
+      </div>
+      <div class="refs-list">
+        <div style="font-family:var(--font-pixel);font-size:8px;color:var(--muted);margin-bottom:1rem">REFERENCIAS BIBLIOGRÁFICAS</div>
+        <div class="ref-item">Bertalanffy, L. von (1968). <em>General System Theory: Foundations, Development, Applications.</em> George Braziller.</div>
+        <div class="ref-item">Johansen Bertoglio, O. (1993). <em>¿Qué es un Sistema? — Definiciones y conceptos.</em> Limusa.</div>
+        <div class="ref-item">Katz, D. & Kahn, R. L. (1966). <em>The Social Psychology of Organizations.</em> Wiley.</div>
+        <div class="ref-item">Boulding, K. E. (1956). General systems theory — The skeleton of science. <em>Management Science, 2</em>(3), 197–208.</div>
+        <div class="ref-item">Wiener, N. (1948). <em>Cybernetics: Or Control and Communication in the Animal and the Machine.</em> MIT Press.</div>
+        <div class="ref-item">Checkland, P. (1981). <em>Systems Thinking, Systems Practice.</em> Wiley.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+// ===== XP SYSTEM =====
+let totalXP = 0;
+function addXP(amount){
+  totalXP += amount;
+  document.getElementById('xpCount').textContent = totalXP;
+  const pct = Math.min(totalXP / 290 * 100, 100);
+  document.getElementById('xpBar').style.width = pct + '%';
+}
+
+// ===== SCROLL REVEAL =====
+const revealEls = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, {threshold:0.1});
+revealEls.forEach(el => obs.observe(el));
+
+// ===== PROP CARDS =====
+function toggleProp(card){
+  card.classList.toggle('expanded');
+}
+
+// ===== SIMULATOR DATA =====
+const systems = {
+  hospital: {
+    inputs: ['Pacientes','Médicos y enfermeras','Medicamentos','Equipos médicos','Presupuesto','Datos del paciente'],
+    processes: ['Diagnóstico clínico','Tratamiento médico','Cirugías','Gestión de camas','Facturación','Investigación clínica'],
+    outputs: ['Pacientes recuperados','Historial médico','Facturación generada','Informes epidemiológicos','Residuos médicos'],
+    correct: {
+      inputs: ['Pacientes','Médicos y enfermeras','Medicamentos','Equipos médicos'],
+      processes: ['Diagnóstico clínico','Tratamiento médico','Cirugías'],
+      outputs: ['Pacientes recuperados','Historial médico']
+    }
+  },
+  escuela: {
+    inputs: ['Estudiantes','Docentes','Currículo','Infraestructura','Recursos didácticos','Padres de familia'],
+    processes: ['Enseñanza','Evaluación','Orientación escolar','Gestión académica','Actividades extracurriculares'],
+    outputs: ['Graduados','Conocimiento','Innovación','Resultados de pruebas','Deserción escolar'],
+    correct: {
+      inputs: ['Estudiantes','Docentes','Currículo','Recursos didácticos'],
+      processes: ['Enseñanza','Evaluación','Gestión académica'],
+      outputs: ['Graduados','Conocimiento']
+    }
+  },
+  fabrica: {
+    inputs: ['Materias primas','Operarios','Maquinaria','Energía eléctrica','Diseños de producto','Capital'],
+    processes: ['Producción','Control de calidad','Ensamblaje','Logística interna','Gestión de inventario'],
+    outputs: ['Productos terminados','Residuos industriales','Ganancias','Empleos generados','Emisiones CO2'],
+    correct: {
+      inputs: ['Materias primas','Operarios','Maquinaria','Energía eléctrica'],
+      processes: ['Producción','Control de calidad','Ensamblaje'],
+      outputs: ['Productos terminados','Ganancias']
+    }
+  },
+  computadora: {
+    inputs: ['Datos del usuario','Energía eléctrica','Software instalado','Comandos del teclado','Señal de red'],
+    processes: ['Procesamiento CPU','Almacenamiento en RAM','Renderizado gráfico','Gestión del SO','Compilación de código'],
+    outputs: ['Resultados en pantalla','Archivos guardados','Señales de red','Sonido','Calor disipado'],
+    correct: {
+      inputs: ['Datos del usuario','Energía eléctrica','Comandos del teclado'],
+      processes: ['Procesamiento CPU','Almacenamiento en RAM','Gestión del SO'],
+      outputs: ['Resultados en pantalla','Archivos guardados']
+    }
+  },
+  ecosistema: {
+    inputs: ['Luz solar','Agua y lluvia','CO2 atmosférico','Minerales del suelo','Organismos migrantes'],
+    processes: ['Fotosíntesis','Cadena alimentaria','Ciclo del agua','Descomposición orgánica','Polinización'],
+    outputs: ['Oxígeno','Biomasa','Biodiversidad','Suelo fértil','Absorción de CO2'],
+    correct: {
+      inputs: ['Luz solar','Agua y lluvia','CO2 atmosférico','Minerales del suelo'],
+      processes: ['Fotosíntesis','Cadena alimentaria','Ciclo del agua'],
+      outputs: ['Oxígeno','Biomasa','Biodiversidad']
+    }
+  }
+};
+
+let selectedInputs = [], selectedProcesses = [], selectedOutputs = [];
+let currentSystem = 'hospital';
+
+function loadSystem(){
+  currentSystem = document.getElementById('systemSelect').value;
+  selectedInputs = []; selectedProcesses = []; selectedOutputs = [];
+  renderSimulator();
+  document.getElementById('simFeedback').classList.remove('show');
+}
+
+function renderSimulator(){
+  const sys = systems[currentSystem];
+  const pools = [
+    {id:'inputPool', items:sys.inputs, sel:selectedInputs, zone:'inputDrop', color:'var(--px2)', type:'input'},
+    {id:'processPool', items:sys.processes, sel:selectedProcesses, zone:'processDrop', color:'var(--px4)', type:'process'},
+    {id:'outputPool', items:sys.outputs, sel:selectedOutputs, zone:'outputDrop', color:'var(--px3)', type:'output'}
+  ];
+  pools.forEach(p => {
+    const pool = document.getElementById(p.id);
+    pool.innerHTML = '';
+    p.items.forEach(item => {
+      const el = document.createElement('div');
+      el.className = 'sim-item' + (p.sel.includes(item) ? ' selected' : '');
+      el.textContent = item;
+      el.onclick = () => toggleSimItem(item, p.type, el);
+      pool.appendChild(el);
+    });
+    const drop = document.getElementById(p.zone);
+    drop.innerHTML = '';
+    p.sel.forEach(item => {
+      const el = document.createElement('div');
+      el.className = 'placed-item';
+      el.innerHTML = item + '<span class="remove" onclick="toggleSimItem(\'' + item.replace(/'/g,"\\'") + '\',\'' + p.type + '\',null)">×</span>';
+      drop.appendChild(el);
+    });
+  });
+}
+
+function toggleSimItem(item, type, el){
+  const maps = {input: selectedInputs, process: selectedProcesses, output: selectedOutputs};
+  const arr = maps[type];
+  const idx = arr.indexOf(item);
+  if(idx === -1) arr.push(item); else arr.splice(idx, 1);
+  renderSimulator();
+  document.getElementById('simFeedback').classList.remove('show');
+}
+
+function checkSystem(){
+  const sys = systems[currentSystem];
+  const fb = document.getElementById('simFeedback');
+  if(selectedInputs.length === 0 && selectedProcesses.length === 0 && selectedOutputs.length === 0){
+    fb.className = 'sim-feedback show warn';
+    fb.textContent = '⚠ Debes seleccionar al menos un elemento en cada categoría para validar el sistema.';
+    return;
+  }
+  const correctIn = sys.correct.inputs.filter(i => selectedInputs.includes(i)).length;
+  const wrongIn = selectedInputs.filter(i => !sys.correct.inputs.includes(i)).length;
+  const correctPr = sys.correct.processes.filter(i => selectedProcesses.includes(i)).length;
+  const wrongPr = selectedProcesses.filter(i => !sys.correct.processes.includes(i)).length;
+  const correctOut = sys.correct.outputs.filter(i => selectedOutputs.includes(i)).length;
+  const wrongOut = selectedOutputs.filter(i => !sys.correct.outputs.includes(i)).length;
+  const totalCorrect = correctIn + correctPr + correctOut;
+  const totalWrong = wrongIn + wrongPr + wrongOut;
+  if(totalWrong === 0 && totalCorrect >= 6){
+    fb.className = 'sim-feedback show ok';
+    fb.innerHTML = '✓ ¡Excelente! Tu sistema está correctamente construido. Has identificado las entradas, procesos y salidas principales. '+
+      'Un sistema coherente como este muestra que comprendes cómo los elementos interactúan para transformar recursos en resultados.';
+    addXP(80);
+  } else if(totalWrong > 0){
+    fb.className = 'sim-feedback show error';
+    fb.innerHTML = '✗ Hay ' + totalWrong + ' elemento(s) en categorías incorrectas. Recuerda: las ENTRADAS son los recursos que ingresan, los PROCESOS son las transformaciones internas, y las SALIDAS son los resultados que produce el sistema hacia el entorno.';
+  } else {
+    fb.className = 'sim-feedback show warn';
+    fb.innerHTML = '⚠ Parcialmente correcto (' + totalCorrect + ' correctos). Intenta agregar más elementos clave del sistema. ¿Qué recursos entran? ¿Qué transformaciones ocurren? ¿Qué produce el sistema?';
+  }
+  fb.classList.add('show');
+}
+
+function resetSystem(){
+  selectedInputs = []; selectedProcesses = []; selectedOutputs = [];
+  renderSimulator();
+  document.getElementById('simFeedback').classList.remove('show');
+}
+
+loadSystem();
+
+// ===== EXERCISES =====
+function showExFeedback(btn){
+  const fb = btn.nextElementSibling;
+  fb.textContent = fb.dataset.fb;
+  fb.classList.add('show');
+  fb.style.borderLeftColor = 'var(--px)';
+  fb.style.color = 'var(--muted)';
+  addXP(10);
+}
+
+// ===== MEMORY GAME =====
+const memPairs = [
+  {a:'Bertalanffy', b:'Fundador de la TGS'},
+  {a:'Johansen', b:'Las relaciones importan más que los objetos'},
+  {a:'Retroalimentación', b:'La salida regresa como entrada'},
+  {a:'Entropía', b:'Tendencia al desorden'},
+  {a:'Homeostasis', b:'Equilibrio dinámico del sistema'},
+  {a:'Equifinalidad', b:'Mismo fin, distintos caminos'}
+];
+let memFlipped = [], memMatched = 0, memAttempts = 0, memLock = false;
+
+function initMemory(){
+  memFlipped = []; memMatched = 0; memAttempts = 0; memLock = false;
+  document.getElementById('memAttempts').textContent = 0;
+  document.getElementById('memPairs').textContent = '0';
+  document.getElementById('memStatus').textContent = 'En juego';
+  const cards = [];
+  memPairs.forEach((p,i) => {
+    cards.push({id:'a'+i, text:p.a, match:i});
+    cards.push({id:'b'+i, text:p.b, match:i});
+  });
+  cards.sort(() => Math.random() - .5);
+  const grid = document.getElementById('memoryGrid');
+  grid.innerHTML = '';
+  cards.forEach(c => {
+    grid.innerHTML += `<div class="memory-card" id="mc-${c.id}" data-match="${c.match}" onclick="flipCard(this,'${c.id}','${c.text}')">
+      <div class="memory-inner">
+        <div class="memory-front">${c.text}</div>
+        <div class="memory-back">?</div>
+      </div>
+    </div>`;
+  });
+}
+
+function flipCard(card, id, text){
+  if(memLock || card.classList.contains('flipped') || card.classList.contains('matched')) return;
+  card.classList.add('flipped');
+  memFlipped.push({card, id, match: card.dataset.match});
+  if(memFlipped.length === 2){
+    memLock = true; memAttempts++;
+    document.getElementById('memAttempts').textContent = memAttempts;
+    if(memFlipped[0].match === memFlipped[1].match){
+      memFlipped[0].card.classList.add('matched');
+      memFlipped[1].card.classList.add('matched');
+      memMatched++;
+      document.getElementById('memPairs').textContent = memMatched;
+      if(memMatched === 6){ document.getElementById('memStatus').textContent = '¡Completado!'; addXP(60); }
+      memFlipped = []; memLock = false;
+    } else {
+      setTimeout(() => {
+        memFlipped[0].card.classList.remove('flipped');
+        memFlipped[1].card.classList.remove('flipped');
+        memFlipped = []; memLock = false;
+      }, 900);
+    }
+  }
+}
+initMemory();
+
+// ===== CLASSIFY GAME =====
+const classifyData = [
+  {text:'El cuerpo humano', type:'open'},
+  {text:'Una empresa de servicios', type:'open'},
+  {text:'Un reloj mecánico sellado', type:'closed'},
+  {text:'El ecosistema amazónico', type:'open'},
+  {text:'Una reacción química en recipiente cerrado', type:'closed'},
+  {text:'Una universidad pública', type:'open'},
+  {text:'Un motor de explosión sellado', type:'closed'},
+  {text:'Una ciudad', type:'open'},
+];
+let classifyDragging = null;
+
+function initClassify(){
+  document.getElementById('placed-open').innerHTML = '';
+  document.getElementById('placed-closed').innerHTML = '';
+  document.getElementById('classifyFeedback').classList.remove('show');
+  const bank = document.getElementById('classifyBank');
+  bank.innerHTML = '';
+  classifyData.sort(() => Math.random() - .5).forEach(item => {
+    const el = document.createElement('div');
+    el.className = 'classify-item';
+    el.textContent = item.text;
+    el.dataset.type = item.type;
+    el.draggable = true;
+    el.addEventListener('dragstart', () => { classifyDragging = el; el.classList.add('dragging'); });
+    el.addEventListener('dragend', () => el.classList.remove('dragging'));
+    el.addEventListener('click', () => {
+      if(el.parentElement.id === 'classifyBank') return;
+      el.parentElement.removeChild(el);
+      el.className = 'classify-item'; el.draggable = true;
+      bank.appendChild(el);
+    });
+    bank.appendChild(el);
+  });
+}
+
+function dropClassify(event, zone){
+  event.preventDefault();
+  document.getElementById('zone-' + zone).classList.remove('over');
+  if(!classifyDragging) return;
+  const parent = classifyDragging.parentElement;
+  if(parent) parent.removeChild(classifyDragging);
+  const placed = document.getElementById('placed-' + zone);
+  classifyDragging.className = 'ci';
+  classifyDragging.dataset.zone = zone;
+  classifyDragging.onclick = () => {
+    placed.removeChild(classifyDragging);
+    classifyDragging.className = 'classify-item'; classifyDragging.draggable = true;
+    classifyDragging.dataset.zone = '';
+    document.getElementById('classifyBank').appendChild(classifyDragging);
+  };
+  placed.appendChild(classifyDragging);
+  classifyDragging = null;
+}
+
+function checkClassify(){
+  let correct = 0, total = 0;
+  ['open','closed'].forEach(zone => {
+    const placed = document.getElementById('placed-' + zone);
+    placed.querySelectorAll('.ci').forEach(el => {
+      total++;
+      if(el.dataset.type === zone){ el.classList.add('right'); correct++; }
+      else el.classList.add('wrong');
+    });
+  });
+  const fb = document.getElementById('classifyFeedback');
+  if(total === 0){ fb.className = 'sim-feedback show warn'; fb.textContent = '⚠ Arrastra elementos a las zonas primero.'; return; }
+  if(correct === total && total === classifyData.length){
+    fb.className = 'sim-feedback show ok';
+    fb.textContent = '✓ ¡Perfecto! Clasificaste todos los sistemas correctamente. Los sistemas abiertos intercambian materia y energía con el entorno; los cerrados no lo hacen.';
+    addXP(60);
+  } else {
+    fb.className = 'sim-feedback show error';
+    fb.textContent = `✗ ${correct}/${total} correctos. Recuerda: un sistema ABIERTO intercambia materia, energía o información con su entorno (organismos vivos, empresas). Un sistema CERRADO no realiza ese intercambio (reacciones en recipiente sellado, relojes herméticos).`;
+  }
+  fb.classList.add('show');
+}
+initClassify();
+
+function switchGame(game){
+  document.querySelectorAll('.game-tab').forEach((t,i) => t.classList.toggle('active', (i===0&&game==='memory')||(i===1&&game==='classify')));
+  document.getElementById('memoryGame').classList.toggle('active', game==='memory');
+  document.getElementById('classifyGame').classList.toggle('active', game==='classify');
+}
+
+// ===== QUIZ =====
+const quizQuestions = [
+  {q:'¿Quién es considerado el fundador de la Teoría General de Sistemas?',
+   opts:['Norbert Wiener','Ludwig von Bertalanffy','Oscar Johansen','Kenneth Boulding'],
+   ans:1, fb:'Ludwig von Bertalanffy publicó su obra fundamental en 1968 y es reconocido universalmente como el fundador de la TGS.'},
+  {q:'Según Johansen (1993), un sistema es:',
+   opts:['Una máquina que procesa información','Un conjunto de objetos con relaciones entre ellos y sus atributos','Un organismo vivo con capacidad de adaptación','Un modelo matemático de la realidad'],
+   ans:1, fb:'Johansen define sistema como "un conjunto de objetos, junto con las relaciones entre dichos objetos y entre sus atributos", poniendo énfasis en las relaciones.'},
+  {q:'¿Qué propiedad de los sistemas indica que el todo es más que la suma de sus partes?',
+   opts:['Entropía','Equifinalidad','Holismo / Totalidad','Homeostasis'],
+   ans:2, fb:'El holismo o totalidad es la propiedad por la cual el sistema genera propiedades emergentes que ninguno de sus elementos posee individualmente.'},
+  {q:'¿Cuál es la diferencia principal entre un sistema abierto y uno cerrado?',
+   opts:['El abierto tiene más elementos','El abierto intercambia materia/energía con el entorno; el cerrado no','El cerrado es más complejo','El abierto no tiene retroalimentación'],
+   ans:1, fb:'La clasificación abierto/cerrado se basa en si el sistema realiza intercambios (materia, energía, información) con su entorno exterior.'},
+  {q:'La retroalimentación (feedback) en un sistema consiste en:',
+   opts:['Aumentar indefinidamente las entradas','Reintroducir las salidas como información para ajustar el sistema','Eliminar los procesos no deseados','Aislar el sistema del entorno'],
+   ans:1, fb:'La retroalimentación es el mecanismo por el cual las salidas (resultados) del sistema son reintroducidas como información para regular y ajustar su comportamiento.'},
+  {q:'¿Qué es la entropía en el contexto de los sistemas?',
+   opts:['La energía máxima del sistema','La tendencia natural al desorden y degradación','La capacidad de adaptarse al entorno','El conjunto de objetivos del sistema'],
+   ans:1, fb:'La entropía es la tendencia natural de los sistemas hacia el desorden. Los sistemas abiertos pueden combatirla importando energía del entorno (negentropía).'},
+  {q:'La equifinalidad significa que:',
+   opts:['Todos los sistemas tienen los mismos elementos','Un sistema puede alcanzar el mismo fin desde distintos puntos de partida','Los sistemas siempre llegan a un equilibrio','Las entradas siempre son iguales a las salidas'],
+   ans:1, fb:'La equifinalidad, propuesta por Bertalanffy, indica que en sistemas abiertos el mismo estado final puede alcanzarse desde condiciones iniciales diferentes y por caminos distintos.'},
+  {q:'¿Qué autor introdujo el concepto de niveles de complejidad de los sistemas, proponiendo una jerarquía de 9 niveles?',
+   opts:['Bertalanffy','Wiener','Boulding','Checkland'],
+   ans:2, fb:'Kenneth Boulding propuso en 1956 una jerarquía de 9 niveles de complejidad: desde estructuras estáticas hasta sistemas trascendentales que superan nuestra comprensión.'},
+  {q:'En el modelo de sistema con Entrada–Proceso–Salida, ¿qué representa el "proceso"?',
+   opts:['Los recursos que ingresan al sistema','La transformación interna que convierte entradas en salidas','Los resultados que el sistema entrega al entorno','La retroalimentación del entorno'],
+   ans:1, fb:'El proceso es la actividad de transformación interna que convierte las entradas (recursos) en salidas (resultados). Es el "núcleo" funcional del sistema.'},
+  {q:'¿Cuál de estos es un ejemplo de sistema CERRADO?',
+   opts:['Una empresa privada','El cuerpo humano','Una reacción química en un recipiente sellado','Un ecosistema natural'],
+   ans:2, fb:'Una reacción química en un recipiente sellado no intercambia materia con el exterior (aunque puede intercambiar calor). En contraste, el cuerpo humano, las empresas y los ecosistemas son sistemas abiertos que constantemente intercambian con el entorno.'}
+];
+
+let qIdx = 0, qScore = 0, quizAnswered = false;
+
+function startQuiz(){
+  qIdx = 0; qScore = 0; quizAnswered = false;
+  document.getElementById('quizResult').classList.remove('show');
+  document.getElementById('quizBody').style.display = 'block';
+  renderQuestion();
+}
+
+function renderQuestion(){
+  quizAnswered = false;
+  const q = quizQuestions[qIdx];
+  document.getElementById('qNum').textContent = 'PREGUNTA ' + (qIdx+1) + '/10';
+  document.getElementById('qProgress').style.width = (qIdx/10*100) + '%';
+  document.getElementById('qScore').textContent = qScore + ' pts';
+  document.getElementById('qQuestion').textContent = q.q;
+  const opts = document.getElementById('qOptions');
+  opts.innerHTML = '';
+  q.opts.forEach((o,i) => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-option'; btn.textContent = o;
+    btn.onclick = () => selectAnswer(i);
+    opts.appendChild(btn);
+  });
+  const fb = document.getElementById('qFeedback');
+  fb.className = 'quiz-feedback'; fb.textContent = '';
+  document.getElementById('qNext').className = 'quiz-next';
+}
+
+function selectAnswer(i){
+  if(quizAnswered) return;
+  quizAnswered = true;
+  const q = quizQuestions[qIdx];
+  const btns = document.querySelectorAll('.quiz-option');
+  btns.forEach(b => b.disabled = true);
+  btns[q.ans].classList.add('correct');
+  if(i !== q.ans) btns[i].classList.add('wrong');
+  const fb = document.getElementById('qFeedback');
+  if(i === q.ans){ qScore++; fb.style.borderLeftColor = 'var(--px)'; fb.style.color = 'var(--px)'; fb.textContent = '✓ Correcto. ' + q.fb; addXP(10); }
+  else { fb.style.borderLeftColor = 'var(--px3)'; fb.style.color = 'var(--muted)'; fb.textContent = '✗ Incorrecto. ' + q.fb; }
+  fb.classList.add('show');
+  document.getElementById('qNext').classList.add('show');
+}
+
+function nextQuestion(){
+  qIdx++;
+  if(qIdx >= quizQuestions.length){
+    document.getElementById('quizBody').style.display = 'none';
+    document.getElementById('quizResult').classList.add('show');
+    document.getElementById('finalScore').textContent = qScore + '/10';
+    const msgs = ['Sigue estudiando — revisa las definiciones y vuelve a intentarlo.','Buen intento — repasa los conceptos de retroalimentación y entropía.','Muy bien — dominas los conceptos fundamentales de sistemas.','¡Excelente! — eres un experto en Definiciones de Sistema. 🏆'];
+    const idx = qScore <= 4 ? 0 : qScore <= 6 ? 1 : qScore <= 8 ? 2 : 3;
+    document.getElementById('finalMsg').textContent = msgs[idx];
+    addXP(qScore * 10);
+  } else renderQuestion();
+}
+
+startQuiz();
+</script>
+</body>
+</html>
